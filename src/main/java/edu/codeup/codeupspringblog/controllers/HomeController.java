@@ -8,10 +8,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
-    @ResponseBody
-    public String landingPage() {
-        return "This is the landing page!";
+    //this was the old and the bottom one is thyme leaf
+//    @GetMapping("/")
+//    @ResponseBody
+//    public String landingPage() {
+//        return "This is the landing page!";
+//    }
+
+
+    @GetMapping("/home")
+    public String welcome() {
+//        thyme leaf knows its supposed to render this method cause of the return "home" it has to be named identically to work
+        return "home";
     }
 
 

@@ -22,11 +22,11 @@ public class PostController {
         return String.format("this post id is %s", id);
     }
 
-    @GetMapping("/posts/create")
-    @ResponseBody
-    public String postForm(@PathVariable String create) {
-        return create ;
-    }
+//    @GetMapping("/posts/create")
+//    @ResponseBody
+//    public String postForm(@PathVariable String create) {
+//        return create ;
+//    }
 
     @GetMapping("/posts/create")
     @ResponseBody
