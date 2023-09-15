@@ -18,7 +18,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     @ResponseBody
-    public String postId(@PathVariable int id) {
+    public String postId(@PathVariable Long id) {
         return String.format("this post id is %s", id);
     }
 
@@ -28,5 +28,16 @@ public class PostController {
         return create ;
     }
 
+    @GetMapping("/posts/create")
+    @ResponseBody
+    public String postForm() {
+        return ("heres the post create get repose") ;
+    }
+
+    @PostMapping("/posts/create")
+    @ResponseBody
+    public String postFormCreate() {
+        return  ("heres the post create post repose");
+    }
 
 }

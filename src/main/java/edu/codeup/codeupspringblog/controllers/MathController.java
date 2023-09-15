@@ -18,11 +18,11 @@ public class MathController {
         return String.format("%s + %s = %s", number1, number2, add);
     }
 
-    @GetMapping("/subtract/{number1}/and/{number2}")
+    @GetMapping("/subtract/{number1}/from/{number2}")
     @ResponseBody
     public String subtracting(@PathVariable double number1, @PathVariable double number2) {
-        double sub = Math.abs(number1 - number2);
-        return String.format("%s - %s = %s", number1, number2, sub);
+        double sub = Math.abs(number2 - number1);
+        return String.format("%s - %s = %s", number2, number1, sub);
     }
 
 
@@ -34,7 +34,7 @@ public class MathController {
     }
 
 
-    @GetMapping("/divide/{number1}/and/{number2}")
+    @GetMapping("/divide/{number1}/by/{number2}")
     @ResponseBody
     public String division(@PathVariable double number1, @PathVariable double number2){
         double divide = Math.abs(number1 / number2);
