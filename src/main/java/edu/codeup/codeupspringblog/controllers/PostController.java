@@ -4,10 +4,8 @@ package edu.codeup.codeupspringblog.controllers;
 import edu.codeup.codeupspringblog.models.Post;
 import edu.codeup.codeupspringblog.repositories.PostRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,14 +13,17 @@ import java.util.List;
 public class PostController {
 
     private PostRepository postsDao;
-    public PostController(PostRepository postsDao){
+
+    public PostController(PostRepository postsDao) {
         this.postsDao = postsDao;
     }
 
     @GetMapping("/posts")
-    @ResponseBody
-    public List<Post> returnPosts(){
-        return postsDao.findAll();
+    // model is the way we package up stuff from the back end and send it to the front
+    public String returnPosts(Model model) {
+//        return postsDao.findAll();
+        model.addAttribute("posts", postsDao.findAll());
+        return "posts/index";
     }
 
 //    @GetMapping("/posts")
@@ -43,16 +44,34 @@ public class PostController {
 //        return create ;
 //    }
 
+    //this was for when we didnt have the form and the html made up yet, the bottom is the newer version after the creation of the html and form
+
+//    @GetMapping("/posts/create")
+//    @ResponseBody
+//    public String postForm() {
+//        return ("heres the post create get repose");
+//    }
+
     @GetMapping("/posts/create")
-    @ResponseBody
     public String postForm() {
-        return ("heres the post create get repose");
+        return "posts/create";
     }
 
+    //this was for when we didnt have the form and the html made up yet, the bottom is the newer version after the creation of the html and form
+
+//    @PostMapping("/posts/create")
+//    @ResponseBody
+//    public String postFormCreate() {
+//        return ("heres the post create post repose");
+//    }
+
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String postFormCreate() {
-        return ("heres the post create post repose");
+    public String postFormCreate(@RequestParam ("title") String title, @RequestParam ("body") String body) {
+        Post newPost = new Post(
+                title, body
+        );
+        postsDao.save(newPost);
+        return "redirect:/posts";
     }
 
 }
