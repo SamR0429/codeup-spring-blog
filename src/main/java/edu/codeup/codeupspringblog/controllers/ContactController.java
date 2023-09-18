@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,5 +32,11 @@ public class ContactController {
 //        ContactRepository cr = new ContactRepository();
 
         return contactsDao.findAll();
+    }
+
+    @GetMapping("/contacts/view")
+    public String returnContactsView(Model model){
+        model.addAttribute("contacts", contactsDao.findAll());
+        return "contacts/index";
     }
 }
