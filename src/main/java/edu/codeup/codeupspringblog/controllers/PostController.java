@@ -3,6 +3,7 @@ package edu.codeup.codeupspringblog.controllers;
 
 import edu.codeup.codeupspringblog.models.Post;
 import edu.codeup.codeupspringblog.repositories.PostRepository;
+import edu.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,11 @@ public class PostController {
 
     private PostRepository postsDao;
 
-    public PostController(PostRepository postsDao) {
+    private UserRepository userDao;
+
+    public PostController(PostRepository postsDao, UserRepository userDao) {
         this.postsDao = postsDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/posts")

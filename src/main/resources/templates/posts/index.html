@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/partials :: head('Posts')"></head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Posts</title>
-</head>
 <body>
-<article th:each="post : ${posts}">
-    <h2><a th:href="@{|/posts/${post.id}|}" th:text="${post.title}"></a></h2>
-    <p th:text="${post.body}"></p>
-</article>
+<div id="wrapper">
+    <nav th:replace="partials/partials :: nav"></nav>
+    <header th:replace="partials/partials :: header('Posts')"></header>
+    <div class="container">
+        <article th:each="post : ${posts}">
+            <h2><a th:href="@{|/posts/${post.id}|}" th:text="${post.title}"></a></h2>
+            <p th:text="${post.body}"></p>
+        </article>
+    </div>
+    <footer th:replace="partials/partials :: footer"></footer>
+</div>
+<th:block th:replace="partials/partials :: scripts"></th:block>
+
 </body>
-</html>
