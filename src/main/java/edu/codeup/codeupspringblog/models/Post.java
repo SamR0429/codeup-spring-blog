@@ -14,18 +14,20 @@ public class Post {
 
     private Long id;
 
-//    @Column(columnDefinition = "varchar(100)")
+    //    @Column(columnDefinition = "varchar(100)")
     private String title;
-//    @Column(columnDefinition = "varchar(250)")
+    //    @Column(columnDefinition = "varchar(250)")
     private String body;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-
-    public Post(){
+    public Post() {
 
     }
 
-    public Post(Long id,String title, String body) {
+    public Post(Long id, String title, String body) {
         this.id = id;
         this.body = body;
     }
