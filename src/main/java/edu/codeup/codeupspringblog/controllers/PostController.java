@@ -34,8 +34,14 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     @ResponseBody
-    public String postId(@PathVariable Long id) {
-        return String.format("this post id is %s", id);
+    public String postId(Model model, @PathVariable Long id) {
+//        return String.format("this post id is %s", id);
+        if(postsDao.existsById(id)) {
+            Post post = postsDao.findById(id).get();
+            model.addAttribute("post", post);
+            return "post/show";
+        }
+        return "redirect:/posts";
     }
 
 //    @GetMapping("/posts/create")
@@ -54,6 +60,7 @@ public class PostController {
 
     @GetMapping("/posts/create")
     public String postForm() {
+        //when you are returning, you never want to have "/xxxxx/xxxx" cause the first / will give you and infinite redirect with the website when deployed
         return "posts/create";
     }
 

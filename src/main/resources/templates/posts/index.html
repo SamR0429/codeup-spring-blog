@@ -7,7 +7,7 @@
 </head>
 <body>
 <article th:each="post : ${posts}">
-    <h2 th:text="${post.title}"></h2>
+    <h2><a th:href="@{|/posts/${post.id}|}" th:text="${post.title}"></a></h2>
     <p th:text="${post.body}"></p>
 </article>
 </body>

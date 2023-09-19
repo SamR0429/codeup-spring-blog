@@ -13,7 +13,10 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
+
+//    @Column(columnDefinition = "varchar(100)")
     private String title;
+//    @Column(columnDefinition = "varchar(250)")
     private String body;
 
 
