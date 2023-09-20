@@ -5,6 +5,7 @@ import edu.codeup.codeupspringblog.models.Post;
 import edu.codeup.codeupspringblog.models.User;
 import edu.codeup.codeupspringblog.repositories.PostRepository;
 import edu.codeup.codeupspringblog.repositories.UserRepository;
+import edu.codeup.codeupspringblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,12 @@ public class PostController {
 
     private UserRepository userDao;
 
-    public PostController(PostRepository postsDao, UserRepository userDao) {
+    private final EmailService emailService;
+
+    public PostController(PostRepository postsDao, UserRepository userDao, EmailService emailService) {
         this.postsDao = postsDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -108,11 +112,45 @@ public class PostController {
 //    we added this during billies lecture
 
 
+//    @GetMapping("/posts/{id}/edit")
+//    public String editPost(@PathVariable long id, Model model){
+//        Post postToEdit = postsDao.findById(id).get();
+//        model.addAttribute("post", postToEdit);
+//        return "post/edit";
+//    }
+//
+//    @PostMapping("/posts/{id}/edit")
+//    public String insertEdit(@ModelAttribute Post post, @PathVariable long id){
+//        Post postToEdit = postsDao.findById(id).get();
+//        postToEdit.setTitle(post.getTitle());
+//        postToEdit.setBody(post.getBody());
+//        postsDao.save(postToEdit);
+//        return  "redirect:/posts";
+//    }
+
+    @GetMapping("/posts/create")
+    public String showCreatePostView(Model model) {
+        model.addAttribute("post", new Post());
+        return "posts/create";
+    }
+
+    @PostMapping("/posts/create")
+    public String createPost(@ModelAttribute Post post) {
+        // Hard Coded user SaintSteve
+        User hardCodedUser = userDao.findById(1L).get();
+        Post postToCreate = new Post(
+                post.getTitle(),
+                post.getBody(),
+                hardCodedUser
+        );
+        postsDao.save(postToCreate);
+        return "redirect:/posts";
+    }
     @GetMapping("/posts/{id}/edit")
     public String editPost(@PathVariable long id, Model model){
         Post postToEdit = postsDao.findById(id).get();
         model.addAttribute("post", postToEdit);
-        return "post/edit";
+        return "posts/edit";
     }
 
     @PostMapping("/posts/{id}/edit")
@@ -121,6 +159,7 @@ public class PostController {
         postToEdit.setTitle(post.getTitle());
         postToEdit.setBody(post.getBody());
         postsDao.save(postToEdit);
-        return  "redirect:/posts";
+        return "redirect:/posts/"+id;
     }
+
 }
