@@ -2,6 +2,7 @@ package edu.codeup.codeupspringblog.controllers;
 
 
 import edu.codeup.codeupspringblog.models.Post;
+import edu.codeup.codeupspringblog.models.User;
 import edu.codeup.codeupspringblog.repositories.PostRepository;
 import edu.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,9 @@ public class PostController {
 //        return create ;
 //    }
 
+
+
+
     //this was for when we didnt have the form and the html made up yet, the bottom is the newer version after the creation of the html and form
 
 //    @GetMapping("/posts/create")
@@ -76,13 +80,47 @@ public class PostController {
 //        return ("heres the post create post repose");
 //    }
 
+//    @PostMapping("/posts/create")
+//    public String postFormCreate(@RequestParam ("title") String title, @RequestParam ("body") String body) {
+//
+//        User hardCodedUser = userDao.findById(2L).get();
+//
+//        Post newPost = new Post(title, body, hardCodedUser);
+//        postsDao.save(newPost);
+//        return "redirect:/posts";
+//    }
+
     @PostMapping("/posts/create")
-    public String postFormCreate(@RequestParam ("title") String title, @RequestParam ("body") String body) {
+    public String postFormCreate(@ModelAttribute Post post) {
+
+        User hardCodedUser = userDao.findById(2L).get();
+
         Post newPost = new Post(
-                title, body
+                post.getTitle(),
+                post.getBody(),
+                hardCodedUser
         );
         postsDao.save(newPost);
         return "redirect:/posts";
     }
 
+
+//    we added this during billies lecture
+
+
+    @GetMapping("/posts/{id}/edit")
+    public String editPost(@PathVariable long id, Model model){
+        Post postToEdit = postsDao.findById(id).get();
+        model.addAttribute("post", postToEdit);
+        return "post/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String insertEdit(@ModelAttribute Post post, @PathVariable long id){
+        Post postToEdit = postsDao.findById(id).get();
+        postToEdit.setTitle(post.getTitle());
+        postToEdit.setBody(post.getBody());
+        postsDao.save(postToEdit);
+        return  "redirect:/posts";
+    }
 }

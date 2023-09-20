@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/partials :: head('Post Details')"></head>
+<body>
+<div id="wrapper">
+    <nav th:replace="partials/partials :: nav"></nav>
+    <header th:replace="partials/partials :: header(${post.title})"></header>
+    <main class="container">
+<!--        ask steve about this-->
+        <p th:text="${post.body}"></p>
+        <p th:text="${post.user.email}"></p>
+    </main>
+    <footer th:replace="partials/partials :: footer"></footer>
+</div>
+<th:block th:replace="partials/partials :: scripts"></th:block>
+</body>

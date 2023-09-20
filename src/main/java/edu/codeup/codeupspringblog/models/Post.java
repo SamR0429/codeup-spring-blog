@@ -37,6 +37,14 @@ public class Post {
         this.body = body;
     }
 
+
+    //this constructor is for hardcoding the user to the post, until we learn how to sign in and verify users
+    public Post(String title, String body, User user) {
+        this.title = title;
+        this.body = body;
+    }
+
+
     public Long getId() {
         return id;
     }
