@@ -137,13 +137,14 @@ public class PostController {
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
         // Hard Coded user SaintSteve
-        User hardCodedUser = userDao.findById(1L).get();
+        User hardCodedUser = userDao.findById(2L).get();
         Post postToCreate = new Post(
                 post.getTitle(),
                 post.getBody(),
                 hardCodedUser
         );
         postsDao.save(postToCreate);
+        emailService.prepareAndSend(postToCreate, "new post", "you have created a new post");
         return "redirect:/posts";
     }
     @GetMapping("/posts/{id}/edit")
