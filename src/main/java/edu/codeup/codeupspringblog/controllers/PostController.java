@@ -6,6 +6,8 @@ import edu.codeup.codeupspringblog.models.User;
 import edu.codeup.codeupspringblog.repositories.PostRepository;
 import edu.codeup.codeupspringblog.repositories.UserRepository;
 import edu.codeup.codeupspringblog.services.EmailService;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,7 @@ public class PostController {
         this.userDao = userDao;
         this.emailService = emailService;
     }
+
 
     @GetMapping("/posts")
     // model is the way we package up stuff from the back end and send it to the front
@@ -70,11 +73,11 @@ public class PostController {
 //        return ("heres the post create get repose");
 //    }
 
-    @GetMapping("/posts/create")
-    public String postForm() {
-        //when you are returning, you never want to have "/xxxxx/xxxx" cause the first / will give you and infinite redirect with the website when deployed
-        return "posts/create";
-    }
+//    @GetMapping("/posts/create")
+//    public String postForm() {
+//        //when you are returning, you never want to have "/xxxxx/xxxx" cause the first / will give you and infinite redirect with the website when deployed
+//        return "posts/create";
+//    }
 
     //this was for when we didnt have the form and the html made up yet, the bottom is the newer version after the creation of the html and form
 
@@ -94,19 +97,19 @@ public class PostController {
 //        return "redirect:/posts";
 //    }
 
-    @PostMapping("/posts/create")
-    public String postFormCreate(@ModelAttribute Post post) {
-
-        User hardCodedUser = userDao.findById(2L).get();
-
-        Post newPost = new Post(
-                post.getTitle(),
-                post.getBody(),
-                hardCodedUser
-        );
-        postsDao.save(newPost);
-        return "redirect:/posts";
-    }
+//    @PostMapping("/posts/create")
+//    public String postFormCreate(@ModelAttribute Post post) {
+//
+//        User hardCodedUser = userDao.findById(2L).get();
+//
+//        Post newPost = new Post(
+//                post.getTitle(),
+//                post.getBody(),
+//                hardCodedUser
+//        );
+//        postsDao.save(newPost);
+//        return "redirect:/posts";
+//    }
 
 
 //    we added this during billies lecture
