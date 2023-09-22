@@ -8,6 +8,7 @@ import edu.codeup.codeupspringblog.repositories.UserRepository;
 import edu.codeup.codeupspringblog.services.EmailService;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -140,6 +141,7 @@ public class PostController {
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
         // Hard Coded user SaintSteve
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User hardCodedUser = userDao.findById(2L).get();
         Post postToCreate = new Post(
                 post.getTitle(),
